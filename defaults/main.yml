@@ -3,6 +3,6 @@
 # name: name of the crt in the root trust store
 # pki_dir: where the CA certificate sits in its PKI directory
 
-#trust_ca_configs:
+trust_ca_configs: {}
 #  - name: my-pki
 #    pki_dir: ~/pki
