@@ -1,6 +1,6 @@
 ---
 - name: resolve platform specific vars
-  include_vars: '{{ item }}'
+  ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
     - files:
         - '{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_release }}.yml'
@@ -13,7 +13,7 @@
 - name: install OS pkgs
   become: true
   become_user: root
-  package:
+  ansible.builtin.package:
     name: '{{ trust_ca_dep_pkgs | default([]) }}'
     state: present
 
@@ -21,7 +21,7 @@
   block:
     - name: installing CA certificates...
       with_items: '{{ trust_ca_configs }}'
-      include_role:
+      ansible.builtin.include_role:
         name: andrewrothstein.tls
       vars:
         tls_become: true
@@ -35,4 +35,4 @@
     - name: 'updating trust hashes with: {{ trust_ca_update_trust_cmd }}...'
       become: true
       become_user: root
-      command: '{{ trust_ca_update_trust_cmd }}'
+      ansible.builtin.command: '{{ trust_ca_update_trust_cmd }}'
