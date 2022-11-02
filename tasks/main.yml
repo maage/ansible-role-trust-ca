@@ -11,8 +11,6 @@
         - '{{ role_path }}/vars'
 
 - name: Install OS pkgs
-  become: true
-  become_user: root
   ansible.builtin.package:
     name: '{{ trust_ca_dep_pkgs | default([]) }}'
     state: present
@@ -36,6 +34,4 @@
           ca: '{{ item.name }}.crt'
 
     - name: 'Updating trust hashes with: {{ trust_ca_update_trust_cmd }}...'
-      become: true
-      become_user: root
       ansible.builtin.command: '{{ trust_ca_update_trust_cmd }}'
